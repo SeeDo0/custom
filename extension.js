@@ -1,7 +1,7 @@
 (function () {
 
     // Change this to your GitHub username so you don't have to modify so many things.
-    var fork = "basicBot";
+    var fork = "SeeDo0";
 
     // Define our function responsible for extending the bot.
     function extend() {
@@ -105,9 +105,9 @@
       songstats: true,
       commandLiteral: "!",
       blacklists: {
-        NSFW: "https://rawgit.com/basicBot/custom/master/blacklists/NSFWlist.json",
-        OP: "https://rawgit.com/basicBot/custom/master/blacklists/OPlist.json",
-        BANNED: "https://rawgit.com/basicBot/custom/master/blacklists/BANNEDlist.json"
+        NSFW: "https://rawgit.com/"+fork+"/custom/master/blacklists/NSFWlist.json",
+        OP: "https://rawgit.com/"+fork+"/custom/master/blacklists/OPlist.json",
+        BANNED: "https://rawgit.com/"+fork+"/custom/master/blacklists/BANNEDlist.json"
       }
     }));
 
