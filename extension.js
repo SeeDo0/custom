@@ -38,6 +38,38 @@
           }
         };
 
+        bot.commands.autordjCommand = {
+          command: 'autordj',
+          rank: 'bouncer',
+          type: 'exact',
+          functionality: function (chat, cmd) {
+            if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+            if (!bot.commands.executable(this.rank, chat)) return void (0);
+            else {
+              window.bot.settings.autordj = !window.bot.settings.autordj;
+              API.sendChat('/me ['+chat.un+'] autordj: '+window.bot.settings.autordj);
+            }
+          }
+        };
+
+        $.each(API.getUsers(), function (index, value){
+          setTimeout(function (){
+            if (typeof API.getUser(data.id).id !== "undefined" && window.bot.settings.autordj){
+              API.moderateSetRole(data.id, 1);
+            }
+          }, window.bot.settings.autordjTimer*60*1000);
+        });
+
+        API.on(API.USER_JOIN,function (data){
+          if (data.role === 0){
+            setTimeout(function (){
+              if (typeof API.getUser(data.id).id !== "undefined" && window.bot.settings.autordj){
+                API.moderateSetRole(data.id, 1);
+              }
+            }, window.bot.settings.autordjTimer*60*1000);
+          }
+        });
+
         // Load the chat package again to account for any changes
         bot.loadChat();
 
@@ -46,6 +78,8 @@
     //Change the bots default settings and make sure they are loaded on launch
 
     localStorage.setItem("basicBotsettings", JSON.stringify({
+      autordj: true,
+      autordjTimer: 120,
       botName: "basicBot",
       language: "english",
       chatLink: "https://rawgit.com/basicBot/source/master/lang/en.json",
